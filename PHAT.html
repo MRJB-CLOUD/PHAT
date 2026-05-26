@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P.H.A.T. - Partido Honesto de Acción y Transparencia</title>
+    <style>
+        :root {
+            --primary: #4a148c;
+            --primary-light: #7c43bd;
+            --accent: #d4af37;
+            --accent-dark: #aa882c;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--accent);
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(74, 20, 140, 0.95), rgba(26, 26, 46, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="%23d4af37" stroke-width="1" fill="none" opacity="0.1"/></svg>');
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+            margin-top: 0;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .badge-periodo {
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 6px 15px;
+            font-weight: 700;
+            border-radius: 20px;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-cta {
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            transition: var(--transition);
+        }
+
+        .btn-cta:hover {
+            background-color: var(--white);
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255,255,255,0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 50px;
+            border: 2px solid var(--white);
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        section {
+            padding: 100px 20px 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 50px;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .mvv-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .mvv-card {
+            background-color: var(--white);
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .mvv-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(74, 20, 140, 0.15);
+            border-top-color: var(--accent);
+        }
+
+        .mvv-card h3 {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .valores-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            list-style: none;
+        }
+
+        .valores-list li {
+            background-color: rgba(74, 20, 140, 0.08);
+            color: var(--primary);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            border: 1px solid rgba(74, 20, 140, 0.15);
+        }
+
+        .objetivo-box {
+            background: linear-gradient(rgba(74, 20, 140, 0.03), rgba(74, 20, 140, 0.03));
+            border-left: 6px solid var(--accent);
+            padding: 30px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .objetivo-box h4 {
+            color: var(--primary);
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .propuestas-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            font-size: 17px;
+        }
+
+        .propuestas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .propuesta-card {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            display: flex;
+            align-items: flex-start;
+            transition: var(--transition);
+        }
+
+        .propuesta-card:hover {
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            transform: scale(1.01);
+        }
+
+        .num-box {
+            background-color: var(--primary);
+            color: var(--accent);
+            min-width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+
+        .equipo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .miembro-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            padding: 30px 20px;
+            border-bottom: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .miembro-card:hover {
+            border-bottom-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .avatar-placeholder {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(74, 20, 140, 0.1);
+            border: 3px solid var(--accent);
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary);
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .miembro-card h3 {
+            color: var(--dark);
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .puesto {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .seccion-aula {
+            background-color: var(--light);
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+        }
+
+        .download-box {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 2px dashed rgba(74, 20, 140, 0.2);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .pdf-icon {
+            font-size: 60px;
+            color: #cc0000;
+            margin-bottom: 15px;
+        }
+
+        .btn-pdf {
+            display: inline-flex;
+            align-items: center;
+            background-color: #cc0000;
+            color: var(--white);
+            padding: 14px 35px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(204, 0, 0, 0.3);
+            transition: var(--transition);
+            margin-top: 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-pdf:hover {
+            background-color: #990000;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(204, 0, 0, 0.5);
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 4px solid var(--accent);
+            margin-top: 60px;
+        }
+
+        footer p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo span {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 16px; }
+            .hero-buttons { flex-direction: column; width: 100%; max-width: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">P.H.A.<span>T.</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio" class="active">Inicio</a></li>
+                    <li><a href="#identidad">Identidad</a></li>
+                    <li><a href="#propuestas">Propuestas</a></li>
+                    <li><a href="#equipo">Nuestro Equipo</a></li>
+                    <li><a href="#documentos">Documentos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="badge-periodo">Plan de Gobierno 2026-2027</div>
+        <h1>Partido Honesto de <span>Acción y Transparencia</span></h1>
+        <p>Suscrito ante el Tribunal Electoral Estudiantil. Convocamos a toda la comunidad estudiantil a defender los valores de nuestro centro educativo con soluciones reales y sin falsas promesas.</p>
+        
+        <div class="hero-buttons">
+            <a href="#identidad" class="btn-cta">Leer Resumen</a>
+            <a href="https://drive.google.com/file/d/1bN3SGnn0lc4eVvO_s-eubtQtH0i8X78U/view?usp=drivesdk" target="_blank" class="btn-secondary">📄 Ver PDF Completo</a>
+        </div>
+    </section>
+
+    <section id="identidad">
+        <h2 class="section-title">Nuestra Identidad</h2>
+        
+        <div class="mvv-container">
+            <div class="mvv-card">
+                <h3>Misión</h3>
+                <p>Nuestra misión se sustenta en el compromiso y liderazgo de nuestros representantes para ejercer su función en nombre de la comunidad estudiantil, atendiendo sus propuestas, necesidades y opiniones sobre temas de interés dentro de la institución. Nuestro propósito es ser la voz de la población estudiantil, representando a todo un sector educativo para proponer soluciones a situaciones concretas y promover el bienestar común.</p>
+            </div>
+
+            <div class="mvv-card">
+                <h3>Visión</h3>
+                <p>Nuestra visión se enfoca en la canalización de propuestas hacia un objetivo común: garantizar que durante el periodo 2026-2027 se respeten las opiniones y la identidad de todos los integrantes de la comunidad estudiantil. Se basa en los principios de la democracia, la transparencia y la participación activa, promoviendo un gobierno estudiantil justo, representativo y comprometido con el bienestar colectivo.</p>
+            </div>
+
+            <div class="mvv-card">
+                <h3>Nuestros Valores</h3>
+                <p>Nuestra principal fortaleza y motor para influir de manera positiva en la comunidad estudiantil a través de la responsabilidad y constancia:</p>
+                <ul class="valores-list">
+                    <li>Esfuerzo</li>
+                    <li>Disciplina</li>
+                    <li>Liderazgo</li>
+                    <li>Compromiso</li>
+                    <li>Transparencia Real</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); margin-bottom: 30px;">
+            <p style="margin-bottom: 15px;"><strong>Un compromiso firme y transparente:</strong> Al tomar el cargo de miembros del Comité Ejecutivo del Colegio Técnico Profesional Santo Domingo, nos comprometemos a velar por la voz de la comunidad estudiantil. No buscamos responder a intereses particulares, sino asegurar que cada estudiante sea tomado en cuenta y que su voz tenga el mismo valor que la de los demás. Asimismo, aspiramos a mejorar las condiciones de los bienes de uso común de manera equitativa.</p>
+            <p>Queremos promover la transparencia de una forma realista, sin promesas vacías, basándonos en el diálogo, la escucha y la acción responsable como claves para la toma de buenas decisiones.</p>
+        </div>
+
+        <div class="objetivo-box">
+            <h4>Objetivo General</h4>
+            <p>Nuestro objetivo es que cada persona se lleve consigo una grata experiencia de su paso por esta institución, en especial la generación actual, de la cual algunos miembros de nuestro partido político estudiantil forman parte. Lo haremos con ayuda de la colaboración de todos los que se unan en nuestro movement de crear un espacio seguro y libre para expresarse. Nuestras propuestas no se basan en promesas falsas de falsos objetivos con el fin de atraer personas, sino de atraer personas que de verdad compartan nuestras ideas y estén de acuerdo en ser parte del cambio.</p>
+        </div>
+    </section>
+
+    <section id="propuestas" style="background-color: rgba(74, 20, 140, 0.02); border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05); max-width: 100%;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 class="section-title">Ejes y Propuestas de Gestión</h2>
+            <p class="propuestas-intro">Desarrollaremos nuestra administración mediante un objetivo general y cinco objetivos específicos enfocados en soluciones reales para lograr el mayor bienestar físico y mental posible de la población estudiantil.</p>
+            
+            <div class="propuestas-grid">
+                <div class="propuesta-card">
+                    <div class="num-box">1</div>
+                    <div>
+                        <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 18px;">Bienestar Estudiantil Integral</h4>
+                        <p style="font-size: 15px; color: #555;">Propuestas e iniciativas enfocadas directamente en el bienestar físico y mental de toda la población estudiantil del CTP.</p>
+                    </div>
+                </div>
+
+                <div class="propuesta-card">
+                    <div class="num-box">2</div>
+                    <div>
+                        <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 18px;">Fortalecimiento de Recursos</h4>
+                        <p style="font-size: 15px; color: #555;">Mejorar activamente las condiciones y la integridad de las infraestructuras y bienes de uso común de la institución de manera equitativa.</p>
+                    </div>
+                </div>
+
+                <div class="propuesta-card">
+                    <div class="num-box">3</div>
+                    <div>
+                        <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 18px;">Diálogo Constante y Abierto</h4>
+                        <p style="font-size: 15px; color: #555;">Establecimiento de canales de comunicación fluidos con el personal docente y administrativo para trasladar las necesidades estudiantiles.</p>
+                    </div>
+                </div>
+
+                <div class="propuesta-card">
+                    <div class="num-box">4</div>
+                    <div>
+                        <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 18px;">Espacios Seguros de Expresión</h4>
+                        <p style="font-size: 15px; color: #555;">Garantizar un ambiente libre y tolerante donde se respeten rigurosamente las opiniones y la identidad de cada persona.</p>
+                    </div>
+                </div>
+
+                <div class="propuesta-card">
+                    <div class="num-box">5</div>
+                    <div>
+                        <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 18px;">Transparencia y Democracia</h4>
+                        <p style="font-size: 15px; color: #555;">Rendición de cuentas realista durante todo el proceso de aprendizaje, asegurando que la opinión de cada estudiante tenga el mismo valor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="equipo">
+        <h2 class="section-title">Comité Ejecutivo</h2>
+        <p style="text-align: center; max-width: 700px; margin: -30px auto 50px auto; color: #666;">Estudiantes ejemplares dentro y fuera de la institución que conforman la representation del P.H.A.T ante el Colegio Técnico Profesional de Santo Domingo, Circuito 5 de Heredia.</p>
+        
+        <div class="equipo-grid">
+            <div class="miembro-card">
+                <div class="avatar-placeholder">RJ</div>
+                <div class="puesto">Presidencia</div>
+                <h3>Randall Jarquín Sequeira</h3>
+                <div class="seccion-aula">Sección 12-6</div>
+            </div>
+
+            <div class="miembro-card">
+                <div class="avatar-placeholder">DE</div>
+                <div class="puesto">Vicepresidencia</div>
+                <h3>Deishany Espinoza Espinoza</h3>
+                <div class="seccion-aula">Sección 12-4</div>
+            </div>
+
+            <div class="miembro-card">
+                <div class="avatar-placeholder">JB</div>
+                <div class="puesto">Secretaría</div>
+                <h3>Jafet Sinaí Balladarez Mejía</h3>
+                <div class="seccion-aula">Sección 12-2</div>
+            </div>
+
+            <div class="miembro-card">
+                <div class="avatar-placeholder">KS</div>
+                <div class="puesto">Tesorería</div>
+                <h3>Kamila Salas León</h3>
+                <div class="seccion-aula">Sección 11-1</div>
+            </div>
+
+            <div class="miembro-card">
+                <div class="avatar-placeholder">PG</div>
+                <div class="puesto">Fiscalía</div>
+                <h3>Pablo Garabito Solano</h3>
+                <div class="seccion-aula">Sección 11-2</div>
+            </div>
+
+            <div class="miembro-card">
+                <div class="avatar-placeholder">CS</div>
+                <div class="puesto">Primera Vocalía</div>
+                <h3>Celeste Sánchez Rubí</h3>
+                <div class="seccion-aula">Sección 11-1</div>
+            </div>
+
+            <div class="miembro-card">
+                <div class="avatar-placeholder">YM</div>
+                <div class="puesto">Segunda Vocalía</div>
+                <h3>Yamil Mora Castro</h3>
+                <div class="seccion-aula">Sección 11-2</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="documentos">
+        <h2 class="section-title">Documentos Oficiales</h2>
+        <div class="download-box">
+            <div class="pdf-icon">📕</div>
+            <h3 style="color: var(--primary); margin-bottom: 10px; font-size: 22px;">Plan de Gobierno Escrito Completo</h3>
+            <p style="color: #666; max-width: 600px; margin: 0 auto 15px auto;">Accede al documento original completo suscrito formalmente ante el Tribunal Electoral Estudiantil (TEE) con todos los detalles de nuestra propuesta política para el periodo 2026-2027.</p>
+            <a href="https://drive.google.com/file/d/1bN3SGnn0lc4eVvO_s-eubtQtH0i8X78U/view?usp=drivesdk" target="_blank" class="btn-pdf">📥 Descargar / Ver Plan Completo (PDF)</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">P.H.A.<span>T.</span></div>
+        <p style="margin-bottom: 10px; color: var(--accent);">Compromiso, Acción y Transparencia</p>
+        <p>&copy; 2026 - 2027 CTP de Santo Domingo. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const sections = document.querySelectorAll('section, .hero');
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').includes(current)) {
+                    a.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
